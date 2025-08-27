@@ -138,7 +138,10 @@ class MCOAService:
         from mcoa_agents_ui import command_agent
         
         # Update command agent with all monitored tools
-        command_agent.tools = tools.ALL_TOOLS
+        command_agent.tools = [
+            t for t in tools.ALL_TOOLS
+            if getattr(t, "name", None) != "json"
+        ]
         
         # Apply guardrails
         command_agent.input_guardrails = get_security_guardrails()

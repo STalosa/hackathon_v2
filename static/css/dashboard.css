@@ -189,118 +189,12 @@ body {
 }
 
 /* Execution Panel */
-/* Row that contains execution and timeline side-by-side */
-.execution-row {
-    display: flex;
-    gap: 1rem;
-    align-items: stretch;
-}
-
-.execution-panel {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1rem;
-    height: 260px;
-    flex: 1.2;
-    overflow-y: auto;
-}
-
-.execution-panel h3 {
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
-    color: var(--success-color);
-    font-family: var(--font-display);
-}
-
-#execution-display {
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    line-height: 1.5;
-}
-
-.tool-execution {
-    padding: 0.75rem;
-    background: rgba(46, 204, 113, 0.1);
-    border: 1px solid var(--success-color);
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-    animation: slideIn 0.3s ease;
-}
-
-.tool-execution-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
-.tool-params, .tool-result {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    font-size: 0.8rem;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.no-activity {
-    color: var(--text-dim);
-    text-align: center;
-    padding: 3rem;
-}
 
 /* Timeline Panel */
-.timeline-panel {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1rem;
-    height: 260px;
-    flex: 1;
-    overflow-y: auto;
-}
-
-.timeline-panel h3 {
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
-    color: var(--warning-color);
-    font-family: var(--font-display);
-}
-
-.timeline-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.25rem 0;
-    font-size: 0.8rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.timeline-time {
-    color: var(--text-dim);
-    font-family: var(--font-display);
-    min-width: 60px;
-}
-
-.timeline-tool {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.timeline-bar {
-    flex: 1;
-    height: 4px;
-    background: linear-gradient(90deg, var(--active-color) 0%, transparent 100%);
-    border-radius: 2px;
-}
 
 /* Chat Panel */
 .chat-panel {
-    flex: 1;
+    flex: 1 1 auto;
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
     border-radius: 8px;

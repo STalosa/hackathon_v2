@@ -25,8 +25,6 @@ const elements = {
     sendBtn: document.getElementById('send-btn'),
     clearBtn: document.getElementById('clear-btn'),
     testAllBtn: document.getElementById('test-all-btn'),
-    executionDisplay: document.getElementById('execution-display'),
-    timelineDisplay: document.getElementById('timeline-display'),
     toolDetails: document.getElementById('tool-details'),
     currentTime: document.getElementById('current-time'),
     runHistory: document.getElementById('run-history'),
@@ -403,93 +401,92 @@ function addSystemMessage(content) {
     });
 }
 
-function showToolExecution(data) {
-    const html = `
-        <div class="tool-execution">
-            <div class="tool-execution-header">
-                <span>🔧 ${data.tool_name}</span>
-                <span>${data.section}</span>
-            </div>
-            <div class="tool-params">
-                <strong>Parameters:</strong>
-                ${JSON.stringify(data.parameters, null, 2)}
-            </div>
-            <div id="exec-${data.tool_name}" class="tool-result">
-                <strong>Executing...</strong>
-            </div>
-        </div>
-    `;
+// function showToolExecution(data) {
+    //const html = `
+        //<div class="tool-execution">
+          //  <div class="tool-execution-header">
+               // <span>🔧 ${data.tool_name}</span>
+              //  <span>${data.section}</span>
+           // </div>
+           // <div class="tool-params">
+                //<strong>Parameters:</strong>
+               // ${JSON.stringify(data.parameters, null, 2)}
+         //   </div>
+           // <div id="exec-${data.tool_name}" class="tool-result">
+            //    <strong>Executing...</strong>
+           // </div>
+       // </div>
+    //`;
     
-    elements.executionDisplay.innerHTML = html;
-    enableExecutionPopout(data.tool_name, data.section, data.parameters, null, null);
-}
+   // elements.executionDisplay.innerHTML = html;
+   // enableExecutionPopout(data.tool_name, data.section, data.parameters, null, null);
+//} 
 
 // Render latest recorded execution for a tool into the Active Tool Execution panel
-function showExecutionRecord(toolName, rec) {
-    const paramsStr = safeJSONStringify(rec.parameters);
-    const resultStr = safeJSONStringify(rec.result);
-    const dur = typeof rec.duration === 'number' ? `${rec.duration.toFixed(3)}s` : '—';
-    const html = `
-        <div class="tool-execution">
-            <div class="tool-execution-header">
-                <span>🔧 ${toolName}</span>
-                <span>${rec.section || ''}</span>
-            </div>
-            <div class="tool-params">
-                <strong>Parameters:</strong>
-                <pre>${paramsStr}</pre>
-            </div>
-            <div class="tool-result">
-                <strong>Last Result (${dur}):</strong>
-                <pre>${resultStr}</pre>
-            </div>
-        </div>
-    `;
-    elements.executionDisplay.innerHTML = html;
-    enableExecutionPopout(toolName, rec.section, rec.parameters, rec.result, rec.duration);
-}
+// function showExecutionRecord(toolName, rec) {
+  //  const paramsStr = safeJSONStringify(rec.parameters);
+    //const resultStr = safeJSONStringify(rec.result);
+    //const dur = typeof rec.duration === 'number' ? `${rec.duration.toFixed(3)}s` : '—';
+    //const html = `
+      //  <div class="tool-execution">
+        //    <div class="tool-execution-header">
+          //      <span>🔧 ${toolName}</span>
+            //    <span>${rec.section || ''}</span>
+//            </div>
+  //          <div class="tool-params">
+    //            <strong>Parameters:</strong>
+      //          <pre>${paramsStr}</pre>
+        //    </div>
+          //  <div class="tool-result">
+            //    <strong>Last Result (${dur}):</strong>
+              //  <pre>${resultStr}</pre>
+//            </div>
+ //       </div>
+   // `;
+ //   elements.executionDisplay.innerHTML = html;
+  //  enableExecutionPopout(toolName, rec.section, rec.parameters, rec.result, rec.duration);
+//}
 
-function updateToolExecution(data) {
-    const resultElement = document.getElementById(`exec-${data.tool_name}`);
-    if (resultElement) {
-        const resultStr = safeJSONStringify(data.result);
-        resultElement.innerHTML = `
-            <strong>Result (${data.duration.toFixed(3)}s):</strong>
-            <pre>${resultStr}</pre>
-        `;
-    }
-}
+//function updateToolExecution(data) {
+//    const resultElement = document.getElementById(`exec-${data.tool_name}`);
+//    if (resultElement) {
+    //    const resultStr = safeJSONStringify(data.result);
+  //      resultElement.innerHTML = `
+      //      <strong>Result (${data.duration.toFixed(3)}s):</strong>
+        //    <pre>${resultStr}</pre>
+       // `;
+  //  }
+//}
 
-function addToTimeline(toolName, section, status, duration = null) {
-    const time = new Date().toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit',
-        hour12: false 
-    });
+//function addToTimeline(toolName, section, status, duration = null) {
+ //   const time = new Date().toLocaleTimeString('en-US', { 
+ //       hour: '2-digit', 
+ //       minute: '2-digit', 
+ //       second: '2-digit',
+ //       hour12: false 
+  //  });
     
-    const item = document.createElement('div');
-    item.className = 'timeline-item';
+   // const item = document.createElement('div');
+ //   item.className = 'timeline-item';
     
-    let sectionColor = '#3498db';
-    if (section === 'S-2') sectionColor = '#9b59b6';
-    else if (section === 'S-3') sectionColor = '#f39c12';
+ //   let sectionColor = '#3498db';
+ //   if (section === 'S-2') sectionColor = '#9b59b6';
+ //   else if (section === 'S-3') sectionColor = '#f39c12';
     
-    item.innerHTML = `
-        <span class="timeline-time">${time}</span>
-        <span class="timeline-tool" style="color: ${sectionColor}">
-            ${toolName} ${duration ? `(${duration.toFixed(2)}s)` : ''}
-        </span>
-        <div class="timeline-bar"></div>
-    `;
+ //   item.innerHTML = `
+ //       <span class="timeline-time">${time}</span>
+ //       <span class="timeline-tool" style="color: ${sectionColor}">
+ //           ${toolName} ${duration ? `(${duration.toFixed(2)}s)` : ''}
+ //       </span>
+ //       <div class="timeline-bar"></div>
+  //  `;
     
-    elements.timelineDisplay.insertBefore(item, elements.timelineDisplay.firstChild);
+  //  elements.timelineDisplay.insertBefore(item, elements.timelineDisplay.firstChild);
     
     // Keep only last 10 items
     while (elements.timelineDisplay.children.length > 10) {
         elements.timelineDisplay.removeChild(elements.timelineDisplay.lastChild);
     }
-}
 
 function updateToolCount(toolName) {
     if (!state.toolCounts[toolName]) {
@@ -533,39 +530,39 @@ function safeJSONStringify(obj) {
 }
 
 // Hook the Active Tool Execution panel to open a modal with full content
-function enableExecutionPopout(toolName, section, parameters, result, duration) {
-    if (!elements.executionDisplay) return;
-    const container = elements.executionDisplay.closest('.execution-panel');
-    if (!container) return;
-    container.style.cursor = 'zoom-in';
-    container.onclick = () => openExecutionModal(toolName, section, parameters, result, duration);
-}
+//function enableExecutionPopout(toolName, section, parameters, result, duration) {
+//    if (!elements.executionDisplay) return;
+//    const container = elements.executionDisplay.closest('.execution-panel');
+ //   if (!container) return;
+//    container.style.cursor = 'zoom-in';
+//    container.onclick = () => openExecutionModal(toolName, section, parameters, result, duration);
+//}
 
-function openExecutionModal(toolName, section, parameters, result, duration) {
-    if (!elements.execModal) return;
-    const paramsStr = safeJSONStringify(parameters);
-    const resultStr = safeJSONStringify(result);
-    const dur = typeof duration === 'number' ? `${duration.toFixed(3)}s` : '';
-    elements.modalTitle.textContent = `🔧 ${toolName}${section ? ` — ${section}` : ''}`;
-    elements.modalBody.innerHTML = `
-        <div style="margin-bottom: 0.75rem;">${dur ? `<strong>Duration:</strong> ${dur}` : ''}</div>
-        <div style="margin-bottom: 0.75rem;">
-            <strong>Parameters</strong>
-            <pre style="margin-top: 0.25rem;">${paramsStr}</pre>
-        </div>
-        <div>
-            <strong>Result</strong>
-            <pre style="margin-top: 0.25rem;">${resultStr || '(no result yet)'}</pre>
-        </div>
-    `;
-    elements.execModal.classList.remove('hidden');
-}
+//function openExecutionModal(toolName, section, parameters, result, duration) {
+  //  if (!elements.execModal) return;
+  //  const paramsStr = safeJSONStringify(parameters);
+//    const resultStr = safeJSONStringify(result);
+//    const dur = typeof duration === 'number' ? `${duration.toFixed(3)}s` : '';
+//    elements.modalTitle.textContent = `🔧 ${toolName}${section ? ` — ${section}` : ''}`;
+//    elements.modalBody.innerHTML = `
+//        <div style="margin-bottom: 0.75rem;">${dur ? `<strong>Duration:</strong> ${dur}` : ''}</div>
+//        <div style="margin-bottom: 0.75rem;">
+//            <strong>Parameters</strong>
+//            <pre style="margin-top: 0.25rem;">${paramsStr}</pre>
+        //</div>
+       // <div>
+      //      <strong>Result</strong>
+    //        <pre style="margin-top: 0.25rem;">${resultStr || '(no result yet)'}</pre>
+   //     </div>
+ //   `;
+//    elements.execModal.classList.remove('hidden');
+//}
 
-function hideModal() {
-    if (elements.execModal) {
-        elements.execModal.classList.add('hidden');
-    }
-}
+//function hideModal() {
+  //  if (elements.execModal) {
+  //      elements.execModal.classList.add('hidden');
+  //  }
+//}
 
 function updateStats(stats) {
     state.stats = stats;
@@ -618,8 +615,6 @@ elements.queryInput.focus();
 
 // Contested Logistics Regeneration
 function regenerateContestedLogistics() {
-    // Find the last assistant message and its tool type
-    // For demo: assume last tool used is in state.lastToolRuns
     let lastTool = null;
     let lastSection = null;
     for (const [tool, rec] of Object.entries(state.lastToolRuns)) {
@@ -629,6 +624,7 @@ function regenerateContestedLogistics() {
         }
     }
     // Map section/tool to scenario_type
+    let scenario_type = "logistics";
     if (lastSection === "S-2") scenario_type = "intelligence";
     else if (lastSection === "S-3") scenario_type = "operations";
     else if (lastSection === "S-4") scenario_type = "logistics";
