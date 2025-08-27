@@ -8,8 +8,8 @@ from agents import Agent, OpenAIResponsesModel
 from agents.extensions.handoff_prompt import RECOMMENDED_PROMPT_PREFIX
 
 # Configuration for the model
-BASE_URL = "http://192.168.2.10:8000/v1"
-MODEL_NAME = "openai/gpt-oss-120b"
+BASE_URL = "http://192.168.2.10:61104/v1"
+MODEL_NAME = "model"
 
 def get_model():
     """Get configured model for all agents."""
@@ -20,7 +20,7 @@ def get_model():
             api_key="EMPTY",
         ),
     )
-
+ 
 
 # ============== UNIFIED COMMAND AGENT ==============
 # This agent starts with no tools - they'll be added by the service

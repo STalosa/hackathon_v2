@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 </head>
-<body>
+<body> 
     <div class="dashboard-container">
         <!-- Header -->
         <header class="header">
@@ -92,6 +92,11 @@
                             <span class="tool-name">Resupply</span>
                             <span class="tool-count">0</span>
                         </div>
+                        <div class="tool-item" data-tool="s5_contested_logistics">
+                            <span class="tool-indicator"></span>
+                            <span class="tool-name">Contested Logistics</span>
+                            <span class="tool-count">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -137,6 +142,7 @@
                         <button class="quick-btn" data-query="Plan a resupply convoy for 2nd Battalion delivering 1200 MREs by 1200Z tomorrow from the nearest supply point. Assess route weather and terrain, threat level, comms status, vehicle availability, and create a convoy plan with recommended timing. If feasible, submit a PRIORITY resupply request.">🚚 Convoy Plan</button>
                         <button class="quick-btn" id="test-all-btn">🔧 Test All</button>
                         <button class="quick-btn danger" id="clear-btn">🗑️ Clear</button>
+                        <button class="quick-btn" id="regen-contested-btn">♻️ Regenerate b/c Contested Logistics</button>
                     </div>
                 </div>
             </div>

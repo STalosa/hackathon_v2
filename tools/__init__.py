@@ -45,6 +45,9 @@ from .s4_logistics import (
     ResupplyRequest,
 )
 
+# Import S-5 Contested Logistics tools
+from .s5_contested_logistics import s5_contested_logistics
+
 # Export all tools as a list for easy agent configuration
 ALL_TOOLS = [
     # S-2 Intelligence
@@ -62,6 +65,8 @@ ALL_TOOLS = [
     check_vehicle_status,
     request_resupply,
     calculate_sustainment,
+    # S-5 Contested Logistics
+    s5_contested_logistics,
 ]
 
 __all__ = [
@@ -94,6 +99,8 @@ __all__ = [
     'SupplyStatus',
     'VehicleStatus',
     'ResupplyRequest',
+    # S-5 Contested Logistics
+    's5_contested_logistics',
     # Convenience
     'ALL_TOOLS',
 ]

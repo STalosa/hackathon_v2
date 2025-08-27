@@ -17,7 +17,7 @@ const state = {
         avg_response_time: 0
     }
 };
-
+ 
 // DOM Elements
 const elements = {
     chatMessages: document.getElementById('chat-messages'),
@@ -33,7 +33,8 @@ const elements = {
     execModal: document.getElementById('exec-modal'),
     modalTitle: document.getElementById('modal-title'),
     modalBody: document.getElementById('modal-body'),
-    modalClose: document.getElementById('modal-close')
+    modalClose: document.getElementById('modal-close'),
+    regenContestedBtn: document.getElementById('regen-contested-btn')
 };
 
 // Initialize
@@ -100,6 +101,9 @@ function initializeEventListeners() {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') hideModal();
         });
+    }
+    if (elements.regenContestedBtn) {
+        elements.regenContestedBtn.addEventListener('click', regenerateContestedLogistics);
     }
 }
 
@@ -611,3 +615,24 @@ function updateSessionTime() {
 
 // Auto-focus on input
 elements.queryInput.focus();
+
+// Contested Logistics Regeneration
+function regenerateContestedLogistics() {
+    // Find the last assistant message and its tool type
+    // For demo: assume last tool used is in state.lastToolRuns
+    let lastTool = null;
+    let lastSection = null;
+    for (const [tool, rec] of Object.entries(state.lastToolRuns)) {
+        if (rec && rec.section) {
+            lastTool = tool;
+            lastSection = rec.section;
+        }
+    }
+    // Map section/tool to scenario_type
+    if (lastSection === "S-2") scenario_type = "intelligence";
+    else if (lastSection === "S-3") scenario_type = "operations";
+    else if (lastSection === "S-4") scenario_type = "logistics";
+    // Send a query to the backend to run the S-5 tool
+    socket.emit('send_query', { query: `Run contested logistics scenario for ${lastTool || 'unit'}: ${scenario_type}` });
+    addSystemMessage(`Regenerating response taking into account contested logistics scenario: ${scenario_type}`);
+}

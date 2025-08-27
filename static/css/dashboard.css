@@ -12,12 +12,13 @@
     --s2-color: #9b59b6;  /* Purple for Intelligence */
     --s3-color: #f39c12;  /* Gold for Operations */
     --s4-color: #3498db;  /* Blue for Logistics */
+    --s5-color: #e67e22; /* Orange for S-5 */
     
     --success-color: #27ae60;
     --warning-color: #f39c12;
     --danger-color: #e74c3c;
     --active-color: #2ecc71;
-    
+     
     --font-main: 'Courier New', monospace;
     --font-display: 'Consolas', 'Monaco', monospace;
 }
@@ -119,6 +120,7 @@ body {
 .s2-section h3 { color: var(--s2-color); }
 .s3-section h3 { color: var(--s3-color); }
 .s4-section h3 { color: var(--s4-color); }
+.s5-section h3 { color: var(--s5-color); }
 
 .tools-grid {
     display: flex;

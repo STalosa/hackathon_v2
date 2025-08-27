@@ -86,7 +86,8 @@ def get_mission_status(mission_id: Optional[str] = None) -> Dict:
     
     statuses = ["IN_PROGRESS", "PLANNING", "COMPLETE", "ON_HOLD"]
     status = random.choice(statuses)
-    
+
+
     return {
         "mission_id": mission_id,
         "mission_name": f"Operation {random.choice(['STEEL', 'IRON', 'EAGLE', 'THUNDER'])} {random.choice(['STORM', 'HAWK', 'SHIELD', 'SPEAR'])}",

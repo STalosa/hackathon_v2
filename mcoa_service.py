@@ -22,7 +22,7 @@ import tools
 
 # Disable tracing for cleaner output
 set_tracing_disabled(True)
-
+ 
 
 class ToolMonitor:
     """Monitors and wraps tool execution for real-time updates."""

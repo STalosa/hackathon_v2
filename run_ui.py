@@ -19,7 +19,7 @@ print("\nStarting MCOA Web Dashboard...")
 print("This will open in your browser at http://localhost:5001")
 print("\nPress Ctrl+C to stop the server")
 print("="*60 + "\n")
-
+ 
 # Start the Flask app
 try:
     # Open browser after a short delay
