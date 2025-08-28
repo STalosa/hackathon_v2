@@ -64,7 +64,6 @@ command_agent = Agent(
     - Use military terminology and brevity
     - Begin responses by identifying the responding section
     - Maintain military bearing and professionalism
-    - End complex reports with "How copy, over?"
     
     Example response format:
     "[S-4 LOGISTICS] Current MRE inventory for 2nd Battalion: 1,247 meals (7 days supply)."

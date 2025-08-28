@@ -56,17 +56,23 @@ function initializeEventListeners() {
     });
     
     // Clear conversation
-    elements.clearBtn.addEventListener('click', () => {
-        if (confirm('Clear conversation history?')) {
-            socket.emit('clear_conversation');
-        }
-    });
+    // FIX: guard null to avoid TypeError that prevents other listeners (incl. our button) from binding
+    if (elements.clearBtn) { // FIX
+        elements.clearBtn.addEventListener('click', () => { // FIX
+            if (confirm('Clear conversation history?')) {
+                socket.emit('clear_conversation');
+            }
+        });
+    } // FIX
     
     // Test all tools
-    elements.testAllBtn.addEventListener('click', () => {
-        socket.emit('test_all_tools');
-        addSystemMessage('Running all tool tests...');
-    });
+    // FIX: guard null to avoid TypeError that prevents other listeners from binding
+    if (elements.testAllBtn) { // FIX
+        elements.testAllBtn.addEventListener('click', () => { // FIX
+            socket.emit('test_all_tools');
+            addSystemMessage('Running all tool tests...');
+        });
+    } // FIX
     
     // Quick action buttons
     document.querySelectorAll('.quick-btn[data-query]').forEach(btn => {
@@ -365,15 +371,15 @@ function addMessage(type, content) {
     header.className = 'message-header';
     
     if (type === 'user') {
-        header.textContent = '👤 USER';
+        header.textContent = 'USER';
     } else if (type === 'assistant') {
-        header.textContent = '🎖️ MCOA';
+        header.textContent = 'MCOA';
     } else if (type === 'error') {
-        header.textContent = '❌ ERROR';
+        header.textContent = 'ERROR';
         messageDiv.style.borderColor = '#e74c3c';
     } else if (type === 'warning') {
-        header.textContent = '⚠️ WARNING';
-        messageDiv.style.borderColor = '#f39c12';
+        header.textContent = 'WARNING';
+        messageDiv.style.borderColor = '#fcff2fff';
     }
     
     const contentDiv = document.createElement('div');
@@ -401,92 +407,13 @@ function addSystemMessage(content) {
     });
 }
 
-// function showToolExecution(data) {
-    //const html = `
-        //<div class="tool-execution">
-          //  <div class="tool-execution-header">
-               // <span>🔧 ${data.tool_name}</span>
-              //  <span>${data.section}</span>
-           // </div>
-           // <div class="tool-params">
-                //<strong>Parameters:</strong>
-               // ${JSON.stringify(data.parameters, null, 2)}
-         //   </div>
-           // <div id="exec-${data.tool_name}" class="tool-result">
-            //    <strong>Executing...</strong>
-           // </div>
-       // </div>
-    //`;
-    
-   // elements.executionDisplay.innerHTML = html;
-   // enableExecutionPopout(data.tool_name, data.section, data.parameters, null, null);
-//} 
 
-// Render latest recorded execution for a tool into the Active Tool Execution panel
-// function showExecutionRecord(toolName, rec) {
-  //  const paramsStr = safeJSONStringify(rec.parameters);
-    //const resultStr = safeJSONStringify(rec.result);
-    //const dur = typeof rec.duration === 'number' ? `${rec.duration.toFixed(3)}s` : '—';
-    //const html = `
-      //  <div class="tool-execution">
-        //    <div class="tool-execution-header">
-          //      <span>🔧 ${toolName}</span>
-            //    <span>${rec.section || ''}</span>
-//            </div>
-  //          <div class="tool-params">
-    //            <strong>Parameters:</strong>
-      //          <pre>${paramsStr}</pre>
-        //    </div>
-          //  <div class="tool-result">
-            //    <strong>Last Result (${dur}):</strong>
-              //  <pre>${resultStr}</pre>
-//            </div>
- //       </div>
-   // `;
- //   elements.executionDisplay.innerHTML = html;
-  //  enableExecutionPopout(toolName, rec.section, rec.parameters, rec.result, rec.duration);
+    if (elements.timelineDisplay && elements.timelineDisplay.children) { // FIX: guard undefined to prevent crash that blocks button handler
+        while (elements.timelineDisplay.children.length > 10) { // FIX
+            elements.timelineDisplay.removeChild(elements.timelineDisplay.lastChild); // FIX
+        } // FIX
+    } // FIX
 //}
-
-//function updateToolExecution(data) {
-//    const resultElement = document.getElementById(`exec-${data.tool_name}`);
-//    if (resultElement) {
-    //    const resultStr = safeJSONStringify(data.result);
-  //      resultElement.innerHTML = `
-      //      <strong>Result (${data.duration.toFixed(3)}s):</strong>
-        //    <pre>${resultStr}</pre>
-       // `;
-  //  }
-//}
-
-//function addToTimeline(toolName, section, status, duration = null) {
- //   const time = new Date().toLocaleTimeString('en-US', { 
- //       hour: '2-digit', 
- //       minute: '2-digit', 
- //       second: '2-digit',
- //       hour12: false 
-  //  });
-    
-   // const item = document.createElement('div');
- //   item.className = 'timeline-item';
-    
- //   let sectionColor = '#3498db';
- //   if (section === 'S-2') sectionColor = '#9b59b6';
- //   else if (section === 'S-3') sectionColor = '#f39c12';
-    
- //   item.innerHTML = `
- //       <span class="timeline-time">${time}</span>
- //       <span class="timeline-tool" style="color: ${sectionColor}">
- //           ${toolName} ${duration ? `(${duration.toFixed(2)}s)` : ''}
- //       </span>
- //       <div class="timeline-bar"></div>
-  //  `;
-    
-  //  elements.timelineDisplay.insertBefore(item, elements.timelineDisplay.firstChild);
-    
-    // Keep only last 10 items
-    while (elements.timelineDisplay.children.length > 10) {
-        elements.timelineDisplay.removeChild(elements.timelineDisplay.lastChild);
-    }
 
 function updateToolCount(toolName) {
     if (!state.toolCounts[toolName]) {
@@ -511,7 +438,7 @@ function showToolDetails(toolName, data = null) {
                 <strong>${toolName}</strong>
                 <div style="margin-top: 0.5rem; font-size: 0.75rem;">
                     <div>Duration: ${data.duration.toFixed(3)}s</div>
-                    <div>Status: ${data.success ? '✅ Success' : '❌ Error'}</div>
+                    <div>Status: ${data.success ? 'Success' : 'Error'}</div>
                     <div style="margin-top: 0.5rem;">
                         <strong>Last Result:</strong>
                         <pre style="margin-top: 0.25rem; font-size: 0.7rem;">${resultStr}</pre>
@@ -530,39 +457,7 @@ function safeJSONStringify(obj) {
 }
 
 // Hook the Active Tool Execution panel to open a modal with full content
-//function enableExecutionPopout(toolName, section, parameters, result, duration) {
-//    if (!elements.executionDisplay) return;
-//    const container = elements.executionDisplay.closest('.execution-panel');
- //   if (!container) return;
-//    container.style.cursor = 'zoom-in';
-//    container.onclick = () => openExecutionModal(toolName, section, parameters, result, duration);
-//}
 
-//function openExecutionModal(toolName, section, parameters, result, duration) {
-  //  if (!elements.execModal) return;
-  //  const paramsStr = safeJSONStringify(parameters);
-//    const resultStr = safeJSONStringify(result);
-//    const dur = typeof duration === 'number' ? `${duration.toFixed(3)}s` : '';
-//    elements.modalTitle.textContent = `🔧 ${toolName}${section ? ` — ${section}` : ''}`;
-//    elements.modalBody.innerHTML = `
-//        <div style="margin-bottom: 0.75rem;">${dur ? `<strong>Duration:</strong> ${dur}` : ''}</div>
-//        <div style="margin-bottom: 0.75rem;">
-//            <strong>Parameters</strong>
-//            <pre style="margin-top: 0.25rem;">${paramsStr}</pre>
-        //</div>
-       // <div>
-      //      <strong>Result</strong>
-    //        <pre style="margin-top: 0.25rem;">${resultStr || '(no result yet)'}</pre>
-   //     </div>
- //   `;
-//    elements.execModal.classList.remove('hidden');
-//}
-
-//function hideModal() {
-  //  if (elements.execModal) {
-  //      elements.execModal.classList.add('hidden');
-  //  }
-//}
 
 function updateStats(stats) {
     state.stats = stats;

@@ -1,26 +1,27 @@
 /* MCOA Dashboard - Military Theme CSS */
 
 :root {
-    --bg-primary: #1a1f2e;
-    --bg-secondary: #232937;
-    --bg-panel: #2a3142;
-    --border-color: #3a4155;
+    --bg-primary: #000000;
+    --bg-secondary: #000000;
+    --bg-panel: #2e2e2e;
+    --border-color: #2e2e2e;
     --text-primary: #e1e5ee;
     --text-secondary: #a0a9c1;
     --text-dim: #6b7488;
     
-    --s2-color: #9b59b6;  /* Purple for Intelligence */
-    --s3-color: #f39c12;  /* Gold for Operations */
-    --s4-color: #3498db;  /* Blue for Logistics */
-    --s5-color: #e67e22; /* Orange for S-5 */
+    --s2-color: #ffffff;  
+    --s3-color: #ffffff;  
+    --s4-color: #ffffff;  
+    --s5-color: #ffffff;
     
     --success-color: #27ae60;
     --warning-color: #f39c12;
     --danger-color: #e74c3c;
     --active-color: #2ecc71;
      
-    --font-main: 'Courier New', monospace;
+    --font-main: 'Consolas', monospace;
     --font-display: 'Consolas', 'Monaco', monospace;
+    
 }
 
 * {
@@ -29,9 +30,10 @@
     box-sizing: border-box;
 }
 
+
+
 body {
     font-family: var(--font-main);
-    background: var(--bg-primary);
     color: var(--text-primary);
     height: 100vh;
     overflow: hidden;
@@ -47,8 +49,8 @@ body {
 
 /* Header */
 .header {
-    background: var(--bg-secondary);
-    border-bottom: 2px solid var(--border-color);
+    background: #000;
+    border-bottom: 2px solid #000;
     padding: 1rem 2rem;
 }
 
@@ -61,7 +63,7 @@ body {
 .header h1 {
     font-size: 1.8rem;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1.0);
     font-family: var(--font-display);
 }
 
@@ -72,10 +74,10 @@ body {
 }
 
 .classification {
-    color: var(--warning-color);
+    color: #007a33;
     font-weight: bold;
     padding: 0.25rem 0.75rem;
-    border: 1px solid var(--warning-color);
+    border: 1px solid #007a33;
     border-radius: 4px;
 }
 
@@ -88,6 +90,7 @@ body {
 .main-content {
     flex: 1;
     display: flex;
+    background-image: url(/static/css/usmc_green_marpat.jpg);
     gap: 1rem;
     padding: 1rem;
     overflow: hidden;
@@ -283,7 +286,7 @@ body {
 .send-btn {
     padding: 0.75rem 1.5rem;
     background: var(--s4-color);
-    color: white;
+    color: black;
     border: none;
     border-radius: 4px;
     font-weight: bold;

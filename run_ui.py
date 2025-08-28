@@ -13,7 +13,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 print("\n" + "="*60)
-print("🎖️  MCOA COMMAND CENTER - WEB UI LAUNCHER")
+print("MCOA COMMAND CENTER - WEB UI LAUNCHER")
 print("="*60)
 print("\nStarting MCOA Web Dashboard...")
 print("This will open in your browser at http://localhost:5001")
@@ -38,7 +38,7 @@ try:
     
 except KeyboardInterrupt:
     print("\n\nShutting down MCOA Command Center...")
-    print("Semper Fi! 🇺🇸")
+    print("Semper Fi!")
     sys.exit(0)
 except Exception as e:
     print(f"\nError starting server: {e}")

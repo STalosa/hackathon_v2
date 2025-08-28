@@ -274,7 +274,7 @@ if __name__ == '__main__':
     mcoa_service = init_service()
     
     print("\n" + "="*60)
-    print("🎖️  MCOA COMMAND CENTER - WEB UI")
+    print("MCOA COMMAND CENTER - WEB UI")
     print("="*60)
     print("Starting server at http://localhost:5001")
     print("Open your browser to view the dashboard")
